@@ -3,24 +3,12 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchResults: [
-      {
-        name: 'Formation',
-        artist: 'Beyonce',
-        album: 'Lemonade',
-        id: '1',
-      },
-      {
-        name: 'Tiny Dancer',
-        artist: 'Elton John',
-        album: 'Madman Across The Water',
-        id: '2',
-      }
-    ],
+    this.state = { searchResults: [],
     playlistName: 'Summer 2019',
     playlistTracks: []
     };
@@ -52,6 +40,7 @@ class App extends React.Component {
 
   search(term) {
     console.log(term);
+    Spotify.search(term).then(tracks => {this.setState({searchResults: tracks})});
   }
 
   render() {
